@@ -9,7 +9,7 @@ class easy_ipa::validate_params {
   }
 
   if $easy_ipa::ip_address != '' {
-    validate_legacy(String, 'validate_ip_address', $easy_ipa::ip_address)
+    validate_legacy(Stdlib::IP::Address, 'validate_ip_address', $easy_ipa::ip_address)
   }
 
   if $easy_ipa::manage_host_entry {
@@ -22,8 +22,8 @@ class easy_ipa::validate_params {
     fail('Parameter "idstart" must be an integer greater than 10000.')
   }
 
-  validate_legacy(String, 'validate_domain_name', $easy_ipa::domain)
-  validate_legacy(String, 'validate_domain_name', $easy_ipa::final_realm)
+  validate_legacy(Stdlib::Fqdn, 'validate_domain_name', $easy_ipa::domain)
+  validate_legacy(Stdlib::Fqdn, 'validate_domain_name', $easy_ipa::final_realm)
 
   if $easy_ipa::ipa_role == 'master' {
     if length($easy_ipa::admin_password) < 8 {
@@ -45,7 +45,7 @@ must be populated and at least of length 8."
       fail("When creating a ${easy_ipa::ipa_role} the parameter named ipa_master_fqdn cannot be empty.")
     }
 
-    validate_legacy(String, 'validate_domain_name', $easy_ipa::ipa_master_fqdn)
+    validate_legacy(Stdlib::Fqdn, 'validate_domain_name', $easy_ipa::ipa_master_fqdn)
 
     if $easy_ipa::final_domain_join_password == '' {
       fail("When creating a ${easy_ipa::ipa_role} the parameter named domain_join_password cannot be empty.")
