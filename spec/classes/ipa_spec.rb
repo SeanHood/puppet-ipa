@@ -138,7 +138,7 @@ describe 'easy_ipa', type: :class do
           }
         end
 
-        it { is_expected.to raise_error(Puppet::Error, %r{expects a Stdlib::IP::Address}) }
+	it { is_expected.to raise_error(Puppet::Error, %r{expects a.*Stdlib::IP::Address}) }
       end
 
       context 'with bad domain' do
